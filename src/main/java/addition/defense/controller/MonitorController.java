@@ -3,6 +3,8 @@ package addition.defense.controller;
 import addition.defense.models.dto.CreateMonitorDTO;
 import addition.defense.models.dto.MonitorDTO;
 import addition.defense.service.impl.MonitorServiceImpl;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +39,8 @@ public class MonitorController {
 
 
     @PostMapping
-    public ResponseEntity<MonitorDTO> createMonitor(@RequestBody CreateMonitorDTO createMonitorDTO){
-        return ResponseEntity.ok().build();
+    public ResponseEntity<MonitorDTO> createMonitor(@Valid @RequestBody CreateMonitorDTO createMonitorDTO) {
+        MonitorDTO createdMonitor = monitorService.createMonitor(createMonitorDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdMonitor);
     }
 }
