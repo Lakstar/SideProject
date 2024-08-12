@@ -40,7 +40,14 @@ public class MonitorController {
 
     @PostMapping
     public ResponseEntity<MonitorDTO> createMonitor(@Valid @RequestBody CreateMonitorDTO createMonitorDTO) {
-        MonitorDTO createdMonitor = monitorService.createMonitor(createMonitorDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdMonitor);
+        MonitorDTO monitorDTO = monitorService.createMonitor(createMonitorDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(monitorDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MonitorDTO> updateMonitor(@PathVariable("id") Long id,
+                                                    @Valid @RequestBody CreateMonitorDTO updateMonitorDTO) {
+        MonitorDTO updatedMonitorDTO = monitorService.updateMonitor(id, updateMonitorDTO);
+        return ResponseEntity.ok(updatedMonitorDTO);
     }
 }

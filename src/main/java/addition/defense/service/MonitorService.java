@@ -14,4 +14,6 @@ public interface MonitorService {
     void deleteMonitor(long monitorId);
 
     MonitorDTO getById(Long id);
+
+    MonitorDTO updateMonitor(Long id, CreateMonitorDTO updateMonitorDTO);
 }

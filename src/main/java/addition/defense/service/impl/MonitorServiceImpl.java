@@ -63,4 +63,17 @@ public class MonitorServiceImpl implements MonitorService {
                 monitor.getDescription());
     }
 
+    @Override
+    public MonitorDTO updateMonitor(Long id, CreateMonitorDTO updateMonitorDTO) {
+        Monitor existingMonitor = monitorRepository.findById(id)
+                .orElseThrow(() -> new MonitorNotFoundException("Monitor with ID " + id + " not found."));
+
+        existingMonitor.setName(updateMonitorDTO.getName());
+        existingMonitor.setInches(updateMonitorDTO.getInches());
+        existingMonitor.setDescription(updateMonitorDTO.getDescription());
+
+        Monitor updatedMonitor = monitorRepository.save(existingMonitor);
+        return map(updatedMonitor);
+    }
+
 }
