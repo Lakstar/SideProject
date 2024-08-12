@@ -1,10 +1,7 @@
-package addition.defense.web;
+package addition.defense.controller;
 
 import addition.defense.models.dto.CreateMonitorDTO;
 import addition.defense.models.dto.MonitorDTO;
-import addition.defense.models.entity.Monitor;
-import addition.defense.repository.MonitorRepository;
-import addition.defense.service.MonitorService;
 import addition.defense.service.impl.MonitorServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pcs")
+@RequestMapping("/monitors")
 public class MonitorController {
     private final MonitorServiceImpl monitorService;
 
@@ -40,7 +37,7 @@ public class MonitorController {
 
 
     @PostMapping
-    public ResponseEntity<MonitorDTO> createPc(@RequestBody CreateMonitorDTO createMonitorDTO){
+    public ResponseEntity<MonitorDTO> createMonitor(@RequestBody CreateMonitorDTO createMonitorDTO){
         return ResponseEntity.ok().build();
     }
 }

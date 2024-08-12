@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MonitorService {
-    void createMonitor(CreateMonitorDTO createMonitorDTO);
+    MonitorDTO createMonitor(CreateMonitorDTO createMonitorDTO);
     List<MonitorDTO> getAllMonitors();
 
     void deleteMonitor(long monitorId);

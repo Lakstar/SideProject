@@ -5,6 +5,7 @@ import addition.defense.models.dto.MonitorDTO;
 import addition.defense.models.entity.Monitor;
 import addition.defense.repository.MonitorRepository;
 import addition.defense.service.MonitorService;
+import addition.defense.service.exception.MonitorNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +21,14 @@ public class MonitorServiceImpl implements MonitorService {
     }
 
     @Override
-    public void createMonitor(CreateMonitorDTO createMonitorDTO) {
+    public MonitorDTO createMonitor(CreateMonitorDTO createMonitorDTO) {
+        Monitor monitor = new Monitor();
+        monitor.setName(createMonitorDTO.getName());
+        monitor.setInches(createMonitorDTO.getInches());
+        monitor.setDescription(createMonitorDTO.getDescription());
 
+        Monitor savedMonitor = monitorRepository.save(monitor);
+        return map(savedMonitor);
     }
 
     @Override
@@ -34,6 +41,9 @@ public class MonitorServiceImpl implements MonitorService {
 
     @Override
     public void deleteMonitor(long monitorId) {
+        if (!monitorRepository.existsById(monitorId)) {
+            throw new MonitorNotFoundException("Monitor with ID " + monitorId + " not found.");
+        }
         monitorRepository.deleteById(monitorId);
     }
 
@@ -41,7 +51,7 @@ public class MonitorServiceImpl implements MonitorService {
     public MonitorDTO getById(Long id) {
         return monitorRepository.findById(id)
                 .map(MonitorServiceImpl::map)
-                .orElseThrow(() -> new IllegalArgumentException("Not found!"));
+                .orElseThrow(() -> new MonitorNotFoundException("Not found!"));
 
     }
 
